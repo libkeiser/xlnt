@@ -512,7 +512,8 @@ std::string xlsx_consumer::read_worksheet_begin(const std::string &rel_id)
 
                         if (parser().attribute_present("ySplit"))
                         {
-                            new_pane.y_split = parser().attribute<row_t>("ySplit");
+			    // Google sheets exports this field as floating point for some reason...
+			    new_pane.y_split = static_cast<row_t>(parser().attribute<double>("ySplit"));
                         }
 
                         if (parser().attribute_present("activePane"))
